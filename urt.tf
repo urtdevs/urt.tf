@@ -17,6 +17,7 @@ resource "digitalocean_droplet" "urt" {
     size = "${var.size}"
     ipv6 = false
     private_networking = false
+    ssh_keys = ["${split(",", var.sshkeyfp)}"]
 }
 
 output "ip_addr" {
