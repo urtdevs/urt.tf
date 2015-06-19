@@ -1,0 +1,32 @@
+#!/usr/bin/env bash
+
+set -e
+
+apt-get update
+apt-get upgrade -y
+
+apt-get install screen wget unzip
+
+mkdir -p /opt/urt/
+
+wget -O /opt/urt/server.tar.gz 'http://mirror.urtstats.net/urbanterror/UrbanTerror42_full023.zip'
+
+mkdir -p /tmp/urtserver/
+unzip /opt/urt/server.tar.gz -d /tmp/urtserver/
+
+mv /tmp/urtserver/UrbanTerror42 /opt/urt/urtserver/
+rm -rf /tmp/urtserver
+
+cat >/opt/urt/urbanterrord <<EOF
+#!/usr/bin/env bash
+set -e
+screen -S urtserver /opt/urt/server/UrbanTerror42/Quake3-UrT-Ded.x86_64
+EOF
+
+cat >/etc/init/urtserver.conf <<EOF
+description "urban terror server"
+author "Jon Chen"
+
+start on runlevel [2345]
+exec /opt/urt/urbanterrord
+EOF

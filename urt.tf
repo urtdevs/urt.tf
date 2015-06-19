@@ -18,6 +18,10 @@ resource "digitalocean_droplet" "urt" {
     ipv6 = false
     private_networking = false
     ssh_keys = ["${split(",", var.sshkeyfp)}"]
+
+    provisioner "remote-exec" {
+        script = "urt_install"
+    }
 }
 
 output "ip_addr" {
