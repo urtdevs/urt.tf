@@ -17,9 +17,15 @@ unzip /opt/urt/server.tar.gz -d /tmp/urtserver/
 mv /tmp/urtserver/UrbanTerror42 /opt/urt/urtserver/
 rm -rf /tmp/urtserver
 
+useradd -M -d /opt/urt/ -s /bin/false -U urtserver
+chown -R urtserver:urtserver /opt/urt
+
 cat >/etc/init/urtserver.conf <<EOF
 description "urban terror server"
 author "Jon Chen"
+
+setuid urtserver
+setgid urtserver
 
 start on filesystem and net-device-up IFACE=eth0
 respawn
