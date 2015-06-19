@@ -19,6 +19,12 @@ resource "digitalocean_droplet" "urt" {
     private_networking = false
     ssh_keys = ["${split(",", var.sshkeyfp)}"]
 
+    connection {
+        type = "ssh"
+        user = "root"
+        agent = true
+    }
+
     provisioner "remote-exec" {
         script = "urt_install"
     }
