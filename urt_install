@@ -14,7 +14,7 @@ wget -O /opt/urt/server.tar.gz 'http://mirror.urtstats.net/urbanterror/UrbanTerr
 mkdir -p /tmp/urtserver/
 unzip /opt/urt/server.tar.gz -d /tmp/urtserver/
 
-mv /tmp/urtserver/UrbanTerror42 /opt/urt/urtserver/
+mv /tmp/urtserver/UrbanTerror42/ /opt/urt/urtserver
 rm -rf /tmp/urtserver
 
 useradd -M -d /opt/urt/ -s /bin/false -U urtserver
