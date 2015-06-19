@@ -5,7 +5,7 @@ set -e
 apt-get update
 apt-get upgrade -y
 
-apt-get install wget unzip
+apt-get install wget unzip -y
 
 mkdir -p /opt/urt/
 
