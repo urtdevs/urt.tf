@@ -27,13 +27,13 @@ resource "digitalocean_droplet" "urt" {
 
     provisioner "remote-exec" {
         inline = [
-            "mkdir -p /opt/urt/urtserver/q3ut4/"
+            "mkdir -p /opt/urt/"
         ]
     }
 
     provisioner "file" {
         source = "server.cfg"
-        destination = "/opt/urt/urtserver/q3ut4/server.cfg"
+        destination = "/opt/urt/server.cfg"
     }
 
     provisioner "remote-exec" {

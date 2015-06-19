@@ -16,6 +16,7 @@ unzip /opt/urt/server.tar.gz -d /tmp/urtserver/
 
 mv /tmp/urtserver/UrbanTerror42/ /opt/urt/urtserver
 rm -rf /tmp/urtserver
+mv /opt/urt/server.cfg /opt/urt/urtserver/q3ut4/server.cfg
 
 useradd -M -d /opt/urt/ -s /bin/false -U urtserver
 chown -R urtserver:urtserver /opt/urt
