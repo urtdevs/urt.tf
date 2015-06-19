@@ -22,5 +22,5 @@ description "urban terror server"
 author "Jon Chen"
 
 start on runlevel [2345]
-exec /opt/urt/server/UrbanTerror42/Quake3-UrT-Ded.x86_64
+exec /opt/urt/urtserver/Quake3-UrT-Ded.x86_64
 EOF
