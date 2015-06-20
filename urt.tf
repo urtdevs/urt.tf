@@ -10,6 +10,14 @@ variable "sshkeyfp" {
     default = "6d:ca:a0:de:47:b1:45:62:87:aa:b1:3c:0f:a0:bc:91"
 }
 
+variable "install_mumble" {
+    default = "true"
+}
+
+variable "mumble_superuser_password" {
+    default = "R5onueepeij3Oaejae9ES"
+}
+
 resource "digitalocean_droplet" "urt" {
     image = "ubuntu-14-04-x64"
     name = "urt1"
@@ -38,6 +46,27 @@ resource "digitalocean_droplet" "urt" {
 
     provisioner "remote-exec" {
         script = "urt_install"
+    }
+
+    provisioner "file" {
+        source = "mumble_install"
+        destination = "/opt/mumble_install"
+    }
+
+    provisioner "file" {
+        source = "mumble-server.ini"
+        destination = "/opt/mumble-server.ini"
+    }
+
+    provisioner "remote-exec" {
+        inline = [
+            "if [ '${var.install_mumble}' == 'true' ]; then /opt/mumble_install ; fi",
+            "sudo -i murmurd -ini /etc/mumble-server.ini -supw ${var.mumble_superuser_password} || true",
+            "update-rc.d -f mumble-server defaults || true",
+            "if [ '${var.install_mumble}' == 'true' ]; then cp /opt/mumble-server.ini /etc/mumble-server.ini ; fi",
+            "rm -rf /opt/{mumble_install,mumble-server.ini}",
+            "service mumble-server restart || true"
+        ]
     }
 }
 
