@@ -10,6 +10,10 @@ variable "sshkeyfp" {
     default = "6d:ca:a0:de:47:b1:45:62:87:aa:b1:3c:0f:a0:bc:91"
 }
 
+variable "hostname" {
+    default = "urt1"
+}
+
 variable "install_mumble" {
     default = "true"
 }
@@ -20,7 +24,7 @@ variable "mumble_superuser_password" {
 
 resource "digitalocean_droplet" "urt" {
     image = "ubuntu-14-04-x64"
-    name = "urt1"
+    name = "${var.hostname}.do.nerdrage.biz"
     region = "${var.location}"
     size = "${var.size}"
     ipv6 = false
@@ -70,6 +74,17 @@ resource "digitalocean_droplet" "urt" {
     }
 }
 
+resource "digitalocean_record" "a" {
+    domain = "do.nerdrage.biz"
+    type = "A"
+    name = "${var.hostname}"
+    value = "${digitalocean_droplet.chefserver.ipv4_address}"
+}
+
 output "ip_addr" {
     value = "${digitalocean_droplet.urt.ipv4_address}"
+}
+
+output "fqdn" {
+    value = "${var.hostname}.do.nerdrage.biz"
 }
