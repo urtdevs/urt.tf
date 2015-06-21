@@ -9,7 +9,7 @@ apt-get install wget unzip -y
 
 mkdir -p /opt/urt/
 
-wget -O /opt/urt/server.tar.gz 'http://mirror.urtstats.net/urbanterror/UrbanTerror42_full023.zip'
+wget -O /opt/urt/server.tar.gz 'https://objects.dreamhost.com:443/urt/urt4.2.023.tar.gz'
 
 mkdir -p /tmp/urtserver/
 unzip /opt/urt/server.tar.gz -d /tmp/urtserver/
