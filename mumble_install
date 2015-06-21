@@ -1,6 +1,0 @@
-#!/usr/bin/env bash
-set -e
-
-add-apt-repository -y ppa:mumble/release
-apt-get update
-apt-get install mumble-server -y

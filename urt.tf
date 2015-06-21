@@ -33,40 +33,12 @@ resource "digitalocean_droplet" "urt" {
         agent = true
     }
 
-    provisioner "remote-exec" {
-        inline = [
-            "mkdir -p /opt/urt/"
-        ]
-    }
-
-    provisioner "file" {
-        source = "server.cfg"
-        destination = "/opt/urt/server.cfg"
-    }
-
-    provisioner "remote-exec" {
-        script = "urt_install"
-    }
-
-    provisioner "file" {
-        source = "mumble_install"
-        destination = "/opt/mumble_install"
-    }
-
-    provisioner "file" {
-        source = "mumble-server.ini"
-        destination = "/opt/mumble-server.ini"
-    }
-
-    provisioner "remote-exec" {
-        inline = [
-            "if [ '${var.install_mumble}' == 'true' ]; then chmod +x /opt/mumble_install && /opt/mumble_install ; fi",
-            "sudo -i murmurd -ini /etc/mumble-server.ini -supw ${var.mumble_superuser_password} || true",
-            "update-rc.d -f mumble-server defaults || true",
-            "if [ '${var.install_mumble}' == 'true' ]; then cp /opt/mumble-server.ini /etc/mumble-server.ini ; fi",
-            "rm -rf /opt/{mumble_install,mumble-server.ini}",
-            "service mumble-server restart || true"
-        ]
+    provisioner "chef" {
+        attributes {
+            "mumble_superuser_password" = "${var.mumble_superuser_password}"
+            "install_mumble" = "${var.install_mumble}"
+        }
+        node_name = "5806007"
     }
 }
 
