@@ -1,5 +1,5 @@
 variable "location" {
-    default = "nyc1"
+    default = "sfo1"
 }
 
 variable "size" {
