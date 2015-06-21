@@ -60,7 +60,7 @@ resource "digitalocean_droplet" "urt" {
 
     provisioner "remote-exec" {
         inline = [
-            "if [ '${var.install_mumble}' == 'true' ]; then /opt/mumble_install ; fi",
+            "if [ '${var.install_mumble}' == 'true' ]; then chmod +x /opt/mumble_install && /opt/mumble_install ; fi",
             "sudo -i murmurd -ini /etc/mumble-server.ini -supw ${var.mumble_superuser_password} || true",
             "update-rc.d -f mumble-server defaults || true",
             "if [ '${var.install_mumble}' == 'true' ]; then cp /opt/mumble-server.ini /etc/mumble-server.ini ; fi",
