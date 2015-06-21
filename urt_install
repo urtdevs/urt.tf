@@ -10,6 +10,8 @@ apt-get install wget unzip -y
 mkdir -p /opt/urt/
 
 wget -O /opt/urt/server.tar.gz 'https://objects.dreamhost.com:443/urt/urt4.2.023.tar.gz'
+wget -O /opt/urt/sha512.sum 'https://objects.dreamhost.com:443/urt/sha512.sum'
+shasum -b -a 512 -c /opt/urt/sha512.sum
 
 mkdir -p /tmp/urtserver/
 unzip /opt/urt/server.tar.gz -d /tmp/urtserver/
