@@ -78,7 +78,7 @@ resource "digitalocean_record" "a" {
     domain = "do.nerdrage.biz"
     type = "A"
     name = "${var.hostname}"
-    value = "${digitalocean_droplet.chefserver.ipv4_address}"
+    value = "${digitalocean_droplet.urt.ipv4_address}"
 }
 
 output "ip_addr" {
