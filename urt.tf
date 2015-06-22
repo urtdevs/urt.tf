@@ -14,10 +14,6 @@ variable "hostname" {
     default = "urt1"
 }
 
-variable "install_mumble" {
-    default = "true"
-}
-
 variable "mumble_superuser_password" {
     default = "R5onueepeij3Oaejae9ES"
 }
@@ -64,12 +60,13 @@ resource "digitalocean_droplet" "urt" {
 
     provisioner "remote-exec" {
         inline = [
-            "if [ '${var.install_mumble}' == 'true' ]; then chmod +x /opt/mumble_install && /opt/mumble_install ; fi",
-            "sudo -i murmurd -ini /etc/mumble-server.ini -supw ${var.mumble_superuser_password} || true",
-            "update-rc.d -f mumble-server defaults || true",
-            "if [ '${var.install_mumble}' == 'true' ]; then cp /opt/mumble-server.ini /etc/mumble-server.ini ; fi",
+            "chmod +x /opt/mumble_install",
+            "/opt/mumble_install",
+            "sudo -i murmurd -ini /etc/mumble-server.ini -supw ${var.mumble_superuser_password}",
+            "update-rc.d -f mumble-server defaults",
+            "cp /opt/mumble-server.ini /etc/mumble-server.ini",
             "rm -rf /opt/{mumble_install,mumble-server.ini}",
-            "service mumble-server restart || true"
+            "service mumble-server restart"
         ]
     }
 }
