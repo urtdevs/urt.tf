@@ -19,6 +19,10 @@ unzip /opt/urt/server.zip -d /tmp/urtserver/
 mv /tmp/urtserver/UrbanTerror42/ /opt/urt/urtserver
 rm -rf /tmp/urtserver
 wget -O /opt/urt/urtserver/q3ut4/server.cfg 'https://raw.githubusercontent.com/urtdevs/urt.tf/master/server.cfg'
+wget -O /tmp/ncconfigs.zip 'http://downloads.urban-zone.org/files/nationscupcfg.zip'
+unzip /tmp/ncconfigs.zip -d /opt/urt/urtserver/q3ut4/
+wget -O /tmp/uzconfigs.zip 'http://urban-zone.org/configs/UrbanZoneConfigs2014.zip'
+unzip /tmp/uzconfigs.zip -d /opt/urt/urtserver/q3ut4/
 
 useradd -M -d /opt/urt/ -s /bin/bash -U urtserver
 chown -R urtserver:urtserver /opt/urt
