@@ -9,18 +9,18 @@ apt-get install wget unzip -y
 
 mkdir -p /opt/urt/
 
-wget -O /opt/urt/server.tar.gz 'https://objects.dreamhost.com:443/urt/urt4.2.023.tar.gz'
-wget -O /opt/urt/sha512.sum 'https://objects.dreamhost.com:443/urt/sha512.sum'
+wget -O /opt/urt/server.zip 'https://urt.objects.dreamhost.com/4.2.023.zip'
+wget -O /opt/urt/sha512.sum 'https://urt.objects.dreamhost.com/sha256.sum'
 shasum -b -a 512 -c /opt/urt/sha512.sum
 
 mkdir -p /tmp/urtserver/
-unzip /opt/urt/server.tar.gz -d /tmp/urtserver/
+unzip /opt/urt/server.zip -d /tmp/urtserver/
 
 mv /tmp/urtserver/UrbanTerror42/ /opt/urt/urtserver
 rm -rf /tmp/urtserver
-mv /opt/urt/server.cfg /opt/urt/urtserver/q3ut4/server.cfg
+wget -O /opt/urt/urtserver/q3ut4/server.cfg 'https://raw.githubusercontent.com/urtdevs/urt.tf/master/server.cfg'
 
-useradd -M -d /opt/urt/ -s /bin/false -U urtserver
+useradd -M -d /opt/urt/ -s /bin/bash -U urtserver
 chown -R urtserver:urtserver /opt/urt
 
 cat >/etc/init/urtserver.conf <<EOF
